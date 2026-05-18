@@ -1,8 +1,18 @@
+import { BrowserRouter, Route, Routes } from "react-router";
+import Login from "./components/login";
+import Profile from "./components/profile";
+import Body from "./components/body";
+
 function App() {
   return (
-    <>
-      <h1>DEVTINDER-WEB</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Body />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
