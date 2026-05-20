@@ -46,3 +46,12 @@
 
 - Make some chages in body component so that user does not logout when refreshing any other page.
 - Implement logout feature, setup feed slice and implemtn user feed card and profile page.
+
+## PART -- 4
+
+- Implement user connection page - setup connection slice and render the user connections
+- Implement user connection request page - setup request slice and render the requested users and did the accept and reject logic.
+
+### SUMMARY - PART -- 3
+
+- Implemented user connection anf request page.

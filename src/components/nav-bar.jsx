@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router";
 import { BASE_URL } from "./constants";
 import { removeUser } from "../store/user-slice";
 import { removeFeed } from "../store/feed-slice";
+import { removeConnections } from "../store/connections-slice";
+import { removeRequests } from "../store/requests-slice";
 
 function NavBar() {
   const user = useSelector((store) => store.user);
@@ -22,6 +24,8 @@ function NavBar() {
       );
       dispatch(removeUser());
       dispatch(removeFeed());
+      dispatch(removeConnections());
+      dispatch(removeRequests());
       navigate("/login");
     } catch (err) {
       console.log(err.message);
@@ -55,11 +59,13 @@ function NavBar() {
               <li>
                 <Link to="/profile" className="justify-between">
                   Profile
-                  <span className="badge">New</span>
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/connections">Connections</Link>
+              </li>
+              <li>
+                <Link to="/requests">Request</Link>
               </li>
               <li>
                 <Link onClick={handleLogout}>Logout</Link>
