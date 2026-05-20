@@ -22,8 +22,8 @@ function Login() {
         withCredentials: true,
       });
       dispatch(addUser(response.data.userDetails));
-      navigate("/feed");
       setLoginError("");
+      navigate("/");
     } catch (err) {
       dispatch(removeUser());
       setLoginError(err.response?.data || "Something went wrong");

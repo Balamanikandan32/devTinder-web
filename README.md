@@ -26,9 +26,16 @@
 - Install redux toolkit and setup store, userSlice
 - Dispatch the actions to userSlice in login page
 - Subscribe to store by changing the navbar photourl when user sign in
-- After sucessfull login, navigate the app to /feed page
+- After sucessfull login, navigate the app to feed page (path is /)
 
 ### SUMMAARY - PART -- 2
 
 - created a login form in login page, resolve cors error in backend code and config to store cookie in browser, install redux toolkit, setup redux store.
-- created userSlice, dispatch action to userSlice and navbar is subscribe to store to conditionally show user name and avatar, after login navigate to /feed page.
+- created userSlice, dispatch action to userSlice and navbar is subscribe to store to conditionally show user name and avatar, after login navigate to feed page(path is /).
+
+## PART -- 3
+
+- In body component, check whether the user is logged in or not, if logged in navigate to feed page(path is /), if not logged in navigate to login page(path is /login).
+- By using this, the user cannot access any other pages. (There are multiple way of using protected route this is one of the way)
+- Clicking on the navbar header will navigate to feed page and also setup profile navigation when click on avatar dropdown under pofile.
+- Implemented logout feature
