@@ -39,3 +39,10 @@
 - By using this, the user cannot access any other pages. (There are multiple way of using protected route this is one of the way)
 - Clicking on the navbar header will navigate to feed page and also setup profile navigation when click on avatar dropdown under pofile.
 - Implemented logout feature
+- Setup feed slice and implement user feed card
+- Implemented profile page
+
+### SUMMARY - PART -- 3
+
+- Make some chages in body component so that user does not logout when refreshing any other page.
+- Implement logout feature, setup feed slice and implemtn user feed card and profile page.
