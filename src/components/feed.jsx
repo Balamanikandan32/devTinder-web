@@ -25,6 +25,19 @@ function Feed() {
     if (!userFeed) getFeed();
   }, []);
 
+  if (!userFeed) return null;
+
+  // write logic to first render 10 or 20 user when last user card is clicked then render next 10 or 20 user and so on, if empty show no user found.
+  // if initial it show empty feed then show no user found
+  if (userFeed.length == 0)
+    return (
+      <div>
+        <h1 className="text-center font-bold text-2xl mt-5">
+          No New User found
+        </h1>
+      </div>
+    );
+
   return (
     userFeed && (
       <div className="flex justify-center my-10">

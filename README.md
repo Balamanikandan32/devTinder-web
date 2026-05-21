@@ -52,6 +52,15 @@
 - Implement user connection page - setup connection slice and render the user connections
 - Implement user connection request page - setup request slice and render the requested users and did the accept and reject logic.
 
-### SUMMARY - PART -- 3
+### SUMMARY - PART -- 4
 
-- Implemented user connection anf request page.
+- Implemented user connection and request page.
+
+## PART -- 5
+
+- Implement user interest and ignore logic on the feed page.
+- Implement sign up page. Here we do this as separate page, we can also conditionally render sign up form in login page as well.
+
+### SUMMARY - PART -- 5
+
+- Implemented user interest, ignore logic on feed page and implementee sign up page.

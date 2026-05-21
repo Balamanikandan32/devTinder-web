@@ -7,6 +7,7 @@ import store from "./store/app-store";
 import Feed from "./components/feed";
 import Connections from "./components/connections";
 import Requests from "./components/requests";
+import SignUp from "./components/signup";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Body />}>
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/" element={<Feed />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/connections" element={<Connections />} />

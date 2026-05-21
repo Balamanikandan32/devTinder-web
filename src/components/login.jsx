@@ -7,8 +7,8 @@ import { useNavigate } from "react-router";
 
 function Login() {
   const [credentials, setCredentials] = useState({
-    email: "rohit@gmail.com",
-    password: "Rohit@123",
+    email: "",
+    password: "",
   });
 
   const [loginError, setLoginError] = useState("");
@@ -61,11 +61,20 @@ function Login() {
               }
             />
           </fieldset>
-          <div className="card-actions justify-center">
+          <div className="card-actions justify-center my-3">
             <button className="btn btn-primary" onClick={handleLogin}>
               Login
             </button>
           </div>
+          <p className="text-center">
+            New user ?{" "}
+            <span
+              className="text-bold underline cursor-pointer"
+              onClick={() => navigate("/signup")}
+            >
+              Sign up Here
+            </span>
+          </p>
         </div>
       </div>
     </div>

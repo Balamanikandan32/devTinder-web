@@ -83,7 +83,7 @@ function EditProfile({ user }) {
         </div>
       </div>
       {/* Preview user card */}
-      <UserCard userData={userDetails} />
+      <UserCard userData={userDetails} disbaleActionButtons />
 
       {showToast && (
         <div className="toast toast-top toast-center">
