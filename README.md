@@ -64,3 +64,70 @@
 ### SUMMARY - PART -- 5
 
 - Implemented user interest, ignore logic on feed page and implementee sign up page.
+
+# DEPLOYMENT
+
+- Created a aws account
+- Launch a ec2 instance - in that create key pair login .pem file
+- Connect to your instannce uing ssh client method
+  -- chmod 400 "devTinder-secret-token.pem. Run this command on the key pair .pem file saved location
+  -- ssh -i "devTinder-secret-token.pem" ubuntu@ec2-13-211-253-162.ap-southeast-2.compute.amazonaws.com. Run this command to connect to yor instance
+- Install node on the virtual machine. Install the node verison that your current project used on the virtual machine.
+- Clone the devTinder, devTinder-web in virtual machine using git command , git clone ....
+
+- FRONTEND DEPLOY ON THE EC2
+  - Create a build folder (before that we get git clone so we don't have the node_module, so run npm i and then build the frontend)
+  - we use ngnix for web server
+    -- update the virtual machine - sudo apt update
+    -- install the ngnix - sudo apt install nginx
+    -- start the ngnix - sudo systemctl start nginx
+    -- sudo systemctl enable nginx - it configures the system so that Nginx automatically starts whenever the server boots.
+  - Copy the build folder and paste in the ngnix server(it is present in /var/www/html).
+  - sudo scp -r dist/\* /var/www/html - this command copy the file in dist folder and paste in the /var/www/html.
+  - The moment you run sudo systemctl start nginx, Nginx hooks directly into Port 80 by default.
+  - Even though Nginx is successfully running on Port 80 inside your Ubuntu server, AWS blocks all outside traffic by default for safety. If you try to visit your IP address right now in a browser, it might just infinitely spin and time out.
+    -- To fix this, you have to open the front gate in your AWS Dashboard:
+    -- Go to your AWS EC2 Console.
+    -- Click on your running instance and look at the tabs at the bottom. Click on Security.
+    -- Click on your Security Group link.
+    -- Click Edit inbound rules.
+    - Add a new rule with these exact settings:
+      -- Type: HTTP
+      -- Port Range: 80
+      -- Source: Anywhere-IPv4 (0.0.0.0/0)
+      -- Save the rules.
+    - Once that inbound rule is saved, anyone in the world typing your EC2 Public IP address into their browser will hit your Nginx server, and see your application live!
+- BACKEND DEPLOY ON THE EC2
+  - As we clone the backend on the ec2 instace, it does not have node_module so run the command to install the modules - npm i
+  - Now run the application - npm run start.
+  - Similar to frontend, you must add the inboud rule in ec2 instance.
+  - If you start your app with npm start, it will close the moment you disconnect from SSH(either by closing the terminal window or terminating the connection to the EC2 instance). To keep it running 24/7, use a process manager like PM2.
+    -- Install pm2 - npm install pm2 -g
+    -- start the backend app with pm2 with pm2 name as devTinder - pm2 start npm --name "devTinder" -- start
+    -- some of the pm2 commands- pm2 list, pm2 stop <pm2 name>, pm2 delete <pm2 name>
+  - Set Up a Reverse Proxy (Nginx) -- why? explained below
+    -- Open the configuration file of ngnix - sudo nano /etc/nginx/sites-available/default
+    -- Add this to that file
+    -- server_name 13.211.253.162:3000; # Change domain name to your domain name
+    -- location /api/ {
+    -- proxy_pass http://13.211.253.162:3000/; # Change domain name to your domain name nd 3000 to your app's port
+    -- proxy_http_version 1.1;
+    -- proxy_set_header Upgrade $http_upgrade;
+    -- proxy_set_header Connection 'upgrade';
+    -- proxy_set_header Host $host;
+    -- proxy_cache_bypass $http_upgrade;
+    -- }
+    -- Save the file and restart Nginx - sudo systemctl restart nginx
+
+- Base_URL IS changed temporary, once .env file is learned we can modify the Base_URL
+
+Frontend = http://13.211.253.162/
+Backend = http://13.211.253.162:3000/
+
+Mapping ip to domain name 13.211.253.162 -- devTinder
+
+Frontend = http://devTinder/
+Backend = http://devTinder:3000/ -- in production websites, exposing port numbers in the URL is usually avoided.
+
+<!-- so we used to map the devTinder:3000 (/) 13.211.123.162:3000 to devTinder/api/ (/)  13.211.123.162/api  -->
+<!-- To achive this we uses nginx reverse proxy -->
