@@ -131,3 +131,22 @@ Backend = http://devTinder:3000/ -- in production websites, exposing port number
 
 <!-- so we used to map the devTinder:3000 (/) 13.211.123.162:3000 to devTinder/api/ (/)  13.211.123.162/api  -->
 <!-- To achive this we uses nginx reverse proxy -->
+
+# .env file
+
+- Manual setups (Vanilla Webpack, parcel ...build tools) vs. Automatic setups (Vite, Next.js, Create React App) when handling .env.development and .env.production files on the frontend.
+
+1. Manual Setup (Webpack)
+   In a manual setup, you have to build the environment-switching logic yourself using external tools.
+   - Tooling: Requires installing extra npm packages like dotenv-webpack and cross-env.
+   - Configuration: You must write custom JavaScript code inside webpack.config.js to read your terminal's state, resolve the file path using Node's path module, and inject it.
+   - Security Guardrails: None by default. Webpack will blindly inject every single secret key inside your .env file into the public browser bundle unless you manually filter them out.
+   - Command Control: You have to explicitly define variables in your scripts (e.g., cross-env NODE_ENV=production webpack).
+2. Automatic Setup (Vite / Next.js)
+   In an automatic setup, the framework handles everything out of the box based on convention over configuration.
+   - Toling: Zero extra packages required. The environment engine is built right into the framework.
+   - Configuration: Zero config files to edit. You simply place .env.development and .env.production in your root folder, and the framework automatically swaps them based on whether you ran dev or build.
+   - Security Guardrails: Strict. The framework completely ignores variables unless they are explicitly prefixed with a safety tag (like VITE* or NEXT_PUBLIC*), protecting you from leaking backend secrets.
+   - Command Control: Implicitly handled by the framework's native CLI commands.
+
+<!-- BASE_URL ISSUE IS RESOLVED IN BOTH DEVELOPMENT AND PRODUCTION -->
